@@ -20,6 +20,37 @@ A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, 
 
 ---
 
+
+
+### 🧠 RAG Architecture
+
+`mermaid
+graph TD
+    subgraph "Data Ingestion (Offline)"
+    A[PDF Document] -->|PyPDFLoader| B(Text Extraction)
+    B -->|RecursiveCharacterTextSplitter| C(Text Chunks)
+    C -->|HuggingFace Embeddings| D[(ChromaDB Vector Store)]
+    end
+    
+    subgraph "Conversational Retrieval (Online)"
+    E[User Query] -->|Embed| F(HuggingFace Embeddings)
+    F -->|Similarity Search| D
+    D -->|Top-K Context| G{LangChain Prompt Template}
+    H[(Chat History)] --> G
+    E --> G
+    G -->|Augmented Prompt| I(Groq Llama-3.3-70b)
+    I --> J[Streamlit Chat UI]
+    end
+    
+    classDef io fill:#f9f0ff,stroke:#8a2be2,stroke-width:2px,color:#000;
+    classDef core fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
+    classDef logic fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    
+    class A,J io;
+    class B,C,E,F,H core;
+    class D,G,I logic;
+`
+
 ## ✨ Features
 
 | | |
