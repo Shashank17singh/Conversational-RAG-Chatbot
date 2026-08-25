@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 Conversational RAG Chatbot
+#  Conversational RAG Chatbot
 
 **A Retrieval-Augmented Generation web app that lets you chat with your PDFs — with full conversational memory**
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 📖 Overview
+##  Overview
 
 A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, and Groq. Upload any PDF and have a multi-turn conversation with its content — the app remembers your chat history so follow-up questions stay context-aware.
 
@@ -22,7 +22,7 @@ A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, 
 
 
 
-### 🧠 RAG Architecture
+###  RAG Architecture
 
 ```mermaid
 graph TD
@@ -51,20 +51,20 @@ graph TD
     class D,G,I logic;
 ```
 
-## ✨ Features
+##  Features
 
 | | |
 |---|---|
-| 📄 **Multi-PDF Upload** | Upload one or more PDFs simultaneously |
-| 🧠 **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
-| ⚡ **Groq-Powered LLM** | Ultra-fast inference using Llama 3.3 70B Versatile |
-| 🔍 **Semantic Search** | HuggingFace embeddings + ChromaDB vector store |
-| 🗂️ **Session Management** | Multiple isolated chat sessions supported |
-| 🖥️ **Clean Streamlit UI** | Simple, browser-based interface |
+|  **Multi-PDF Upload** | Upload one or more PDFs simultaneously |
+|  **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
+|  **Groq-Powered LLM** | Ultra-fast inference using Llama 3.3 70B Versatile |
+|  **Semantic Search** | HuggingFace embeddings + ChromaDB vector store |
+|  **Session Management** | Multiple isolated chat sessions supported |
+|  **Clean Streamlit UI** | Simple, browser-based interface |
 
 ---
 
-## 🧠 Architecture
+##  Architecture
 
 ```
 PDF Upload
@@ -90,12 +90,12 @@ History-Aware Retriever (LangChain)
 Groq LLM (Llama 3.3 70B Versatile)
           │
           ▼
-     Final Answer 💬
+     Final Answer 
 ```
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Component | Technology |
 |---|---|
@@ -108,7 +108,7 @@ Groq LLM (Llama 3.3 70B Versatile)
 
 ---
 
-## ⚙️ Setup and Installation
+##  Setup and Installation
 
 ### Prerequisites
 
