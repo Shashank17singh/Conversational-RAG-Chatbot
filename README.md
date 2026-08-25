@@ -24,7 +24,7 @@ A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, 
 
 ### 🧠 RAG Architecture
 
-`mermaid
+```mermaid
 graph TD
     subgraph "Data Ingestion (Offline)"
     A[PDF Document] -->|PyPDFLoader| B(Text Extraction)
@@ -49,7 +49,7 @@ graph TD
     class A,J io;
     class B,C,E,F,H core;
     class D,G,I logic;
-`
+```
 
 ## ✨ Features
 
