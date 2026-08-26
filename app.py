@@ -90,7 +90,7 @@ def main() -> None:
     st.title("Conversational RAG Chatbot")
     st.write("Upload PDF's and chat with their content")
 
-    llm = ChatGroq(groq_api_key=groq_api_key, model_name="mixtral-8x7b-32768")
+    llm = ChatGroq(groq_api_key=groq_api_key, model_name="openai/gpt-oss-20b")
     session_id = st.text_input("Session ID", value="default_session")
 
     uploaded_files = st.file_uploader("Choose a PDF File", type="pdf", accept_multiple_files=True)
