@@ -2,7 +2,7 @@
 
 #  Conversational RAG Chatbot
 
-**A Retrieval-Augmented Generation web app that lets you chat with your PDFs — with full conversational memory**
+**A Retrieval-Augmented Generation web app that lets you chat with your PDFs - with full conversational memory**
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![LangChain](https://img.shields.io/badge/LangChain-RAG%20Framework-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/)
@@ -16,7 +16,7 @@
 
 ##  Overview
 
-A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, and Groq. Upload any PDF and have a multi-turn conversation with its content — the app remembers your chat history so follow-up questions stay context-aware.
+A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, and Groq. Upload any PDF and have a multi-turn conversation with its content - the app remembers your chat history so follow-up questions stay context-aware.
 
 ---
 
@@ -100,8 +100,8 @@ Groq LLM (Llama 3.3 70B Versatile)
 | Component | Technology |
 |---|---|
 | Frontend | Streamlit |
-| LLM | Groq — Llama 3.3 70B Versatile |
-| Embeddings | HuggingFace — all-MiniLM-L6-v2 |
+| LLM | Groq - Llama 3.3 70B Versatile |
+| Embeddings | HuggingFace - all-MiniLM-L6-v2 |
 | Vector Store | ChromaDB |
 | RAG Framework | LangChain |
 | PDF Loader | PyPDFLoader |
