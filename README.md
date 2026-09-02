@@ -16,7 +16,9 @@
 
 ##  Overview
 
-A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, and Groq. Upload any PDF and have a multi-turn conversation with its content - the app remembers your chat history so follow-up questions stay context-aware.
+A Retrieval-Augmented Generation (RAG) web app built with Streamlit, LangChain, and Groq that lets you upload any PDF and have a multi-turn conversation with its content - the app remembers your chat history so follow-up questions stay context-aware.
+
+*Note: This project was built by refactoring a baseline RAG script into a production-ready application by securing API key management via environment variables, modularizing the global execution state, and heavily optimizing the dependency tree for deployment.*
 
 ---
 
