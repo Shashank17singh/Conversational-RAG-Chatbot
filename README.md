@@ -120,8 +120,8 @@ Groq LLM (openai/gpt-oss-20b)
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Shashank17singh/Chatbot_with_PDF_upload_and_History.git
-cd Chatbot_with_PDF_upload_and_History
+git clone https://github.com/Shashank17singh/Conversational-RAG-Chatbot.git
+cd Conversational-RAG-Chatbot
 ```
 
 ### 2. Install dependencies
