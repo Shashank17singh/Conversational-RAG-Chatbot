@@ -6,7 +6,7 @@
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![LangChain](https://img.shields.io/badge/LangChain-RAG%20Framework-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/)
-[![Groq](https://img.shields.io/badge/Groq-Llama--3.3--70b--versatile-F55036?style=for-the-badge&logoColor=white)](https://groq.com/)
+[![Groq](https://img.shields.io/badge/Groq-openai--gpt--oss--20b-F55036?style=for-the-badge&logoColor=white)](https://groq.com/)
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-6A5ACD?style=for-the-badge&logoColor=white)](https://www.trychroma.com/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Embeddings-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
 
@@ -40,7 +40,7 @@ graph TD
     D -->|Top-K Context| G{LangChain Prompt Template}
     H[(Chat History)] --> G
     E --> G
-    G -->|Augmented Prompt| I(Groq Llama-3.3-70b)
+    G -->|Augmented Prompt| I(Groq gpt-oss-20b)
     I --> J[Streamlit Chat UI]
     end
     
@@ -59,7 +59,7 @@ graph TD
 |---|---|
 |  **Multi-PDF Upload** | Upload one or more PDFs simultaneously |
 |  **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
-|  **Groq-Powered LLM** | Ultra-fast inference using Llama 3.3 70B Versatile |
+|  **Groq-Powered LLM** | Ultra-fast inference using openai/gpt-oss-20b |
 |  **Semantic Search** | HuggingFace embeddings + ChromaDB vector store |
 |  **Session Management** | Multiple isolated chat sessions supported |
 |  **Clean Streamlit UI** | Simple, browser-based interface |
@@ -89,7 +89,7 @@ Retriever   Chat History         │
 History-Aware Retriever (LangChain)
           │
           ▼
-Groq LLM (Llama 3.3 70B Versatile)
+Groq LLM (openai/gpt-oss-20b)
           │
           ▼
      Final Answer 
@@ -102,7 +102,7 @@ Groq LLM (Llama 3.3 70B Versatile)
 | Component | Technology |
 |---|---|
 | Frontend | Streamlit |
-| LLM | Groq - Llama 3.3 70B Versatile |
+| LLM | Groq - openai/gpt-oss-20b |
 | Embeddings | HuggingFace - all-MiniLM-L6-v2 |
 | Vector Store | ChromaDB |
 | RAG Framework | LangChain |
