@@ -16,7 +16,7 @@
 
 ##  Overview
 
-Refactored a baseline RAG script into a production-ready web application by securing API key management via environment variables, modularizing the global execution state, and optimizing the dependency tree. Utilizes Streamlit, LangChain, and Gemini to facilitate context-aware, multi-turn dialogue over uploaded PDF documents with ChromaDB vector storage.
+Architected a production-ready RAG web application featuring secure API key management, a modularized execution state, and a highly optimized dependency tree. Utilizes Streamlit, LangChain, and Gemini to facilitate context-aware, multi-turn dialogue over uploaded PDF documents with ChromaDB vector storage.
 
 ---
 
