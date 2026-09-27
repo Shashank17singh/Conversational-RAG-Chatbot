@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Conversational RAG Chatbot
+# Conversational RAG Chatbot
 
 **A Retrieval-Augmented Generation web app that lets you chat with your PDFs - with full conversational memory**
 
@@ -143,3 +143,10 @@ streamlit run app.py
 Open the local URL Streamlit prints in your terminal, upload a PDF, and start chatting.
 
 ---
+
+---
+
+## Deployment
+
+- **Dashboard URL:** https://conversational-rag-chatbot-pdf.streamlit.app/
+
