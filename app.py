@@ -1,22 +1,23 @@
-import streamlit as st
 import os
-from typing import List, Dict, Any
-from langchain_groq import ChatGroq
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables.history import RunnableWithMessageHistory
+from typing import Any
+
+import streamlit as st
+from dotenv import load_dotenv
 from langchain_chroma import Chroma
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
-from langchain_core.documents import Document
 from langchain_classic.chains import (
     create_history_aware_retriever,
     create_retrieval_chain,
 )
 from langchain_classic.chains.combine_documents import create_stuff_documents_chain
-from dotenv import load_dotenv
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.documents import Document
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 def setup_environment() -> str:
@@ -39,7 +40,7 @@ def setup_environment() -> str:
     return groq_api_key
 
 
-def process_uploaded_pdfs(uploaded_files: List[Any]) -> List[Document]:
+def process_uploaded_pdfs(uploaded_files: list[Any]) -> list[Document]:
     """
     Saves uploaded PDFs to a temporary file, extracts text using PyPDFLoader,
     and cleans up the temporary files.
@@ -80,7 +81,7 @@ def main() -> None:
     Main Streamlit application execution block.
     """
     st.set_page_config(page_title="Conversational RAG Chatbot", layout="wide")
-    
+
     CUSTOM_CSS = """
     <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
