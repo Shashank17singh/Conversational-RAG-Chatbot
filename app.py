@@ -17,6 +17,8 @@ from langchain_classic.chains import (
 )
 from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 from dotenv import load_dotenv
+
+
 def setup_environment() -> str:
     """
     Loads environment variables and retrieves the Groq API key.
@@ -35,6 +37,8 @@ def setup_environment() -> str:
         )
         st.stop()
     return groq_api_key
+
+
 def process_uploaded_pdfs(uploaded_files: List[Any]) -> List[Document]:
     """
     Saves uploaded PDFs to a temporary file, extracts text using PyPDFLoader,
@@ -54,6 +58,8 @@ def process_uploaded_pdfs(uploaded_files: List[Any]) -> List[Document]:
         documents.extend(docs)
         os.remove(temppdf)
     return documents
+
+
 def get_session_history(session: str) -> BaseChatMessageHistory:
     """
     Retrieves or initializes the chat message history for a given session ID.
@@ -67,6 +73,8 @@ def get_session_history(session: str) -> BaseChatMessageHistory:
     if session not in st.session_state.store:
         st.session_state.store[session] = ChatMessageHistory()
     return st.session_state.store[session]
+
+
 def main() -> None:
     """
     Main Streamlit application execution block.
@@ -140,5 +148,7 @@ def main() -> None:
             with st.expander("View Chat History"):
                 for msg in get_session_history(session_id).messages:
                     st.write(f"**{msg.type.capitalize()}:** {msg.content}")
+
+
 if __name__ == "__main__":
     main()
