@@ -14,15 +14,13 @@
 
 ---
 
-##  Overview
+## Overview
 
 Architected a production-ready RAG web application featuring secure API key management, a modularized execution state, and a highly optimized dependency tree. Utilizes Streamlit, LangChain, and Gemini to facilitate context-aware, multi-turn dialogue over uploaded PDF documents with ChromaDB vector storage.
 
 ---
 
-
-
-###  RAG Architecture
+### RAG Architecture
 
 ```mermaid
 graph TD
@@ -31,7 +29,7 @@ graph TD
     B -->|RecursiveCharacterTextSplitter| C(Text Chunks)
     C -->|HuggingFace Embeddings| D[(ChromaDB Vector Store)]
     end
-    
+
     subgraph "Conversational Retrieval (Online)"
     E[User Query] -->|Embed| F(HuggingFace Embeddings)
     F -->|Similarity Search| D
@@ -41,30 +39,30 @@ graph TD
     G -->|Augmented Prompt| I(Groq gpt-oss-20b)
     I --> J[Streamlit Chat UI]
     end
-    
+
     classDef io fill:#f9f0ff,stroke:#8a2be2,stroke-width:2px,color:#000;
     classDef core fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
     classDef logic fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
-    
+
     class A,J io;
     class B,C,E,F,H core;
     class D,G,I logic;
 ```
 
-##  Features
+## Features
 
-| | |
-|---|---|
-|  **Multi-PDF Upload** | Upload one or more PDFs simultaneously |
-|  **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
-|  **Groq-Powered LLM** | Ultra-fast inference using openai/gpt-oss-20b |
-|  **Semantic Search** | HuggingFace embeddings + ChromaDB vector store |
-|  **Session Management** | Multiple isolated chat sessions supported |
-|  **Clean Streamlit UI** | Simple, browser-based interface |
+|                                 |                                                         |
+| ------------------------------- | ------------------------------------------------------- |
+| **Multi-PDF Upload**            | Upload one or more PDFs simultaneously                  |
+| **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
+| **Groq-Powered LLM**            | Ultra-fast inference using openai/gpt-oss-20b           |
+| **Semantic Search**             | HuggingFace embeddings + ChromaDB vector store          |
+| **Session Management**          | Multiple isolated chat sessions supported               |
+| **Clean Streamlit UI**          | Simple, browser-based interface                         |
 
 ---
 
-##  Architecture
+## Architecture
 
 ```
 PDF Upload
@@ -90,25 +88,25 @@ History-Aware Retriever (LangChain)
 Groq LLM (openai/gpt-oss-20b)
           │
           ▼
-     Final Answer 
+     Final Answer
 ```
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
-| Component | Technology |
-|---|---|
-| Frontend | Streamlit |
-| LLM | Groq - openai/gpt-oss-20b |
-| Embeddings | HuggingFace - all-MiniLM-L6-v2 |
-| Vector Store | ChromaDB |
-| RAG Framework | LangChain |
-| PDF Loader | PyPDFLoader |
+| Component     | Technology                     |
+| ------------- | ------------------------------ |
+| Frontend      | Streamlit                      |
+| LLM           | Groq - openai/gpt-oss-20b      |
+| Embeddings    | HuggingFace - all-MiniLM-L6-v2 |
+| Vector Store  | ChromaDB                       |
+| RAG Framework | LangChain                      |
+| PDF Loader    | PyPDFLoader                    |
 
 ---
 
-##  Setup and Installation
+## Setup and Installation
 
 ### Prerequisites
 
@@ -150,14 +148,12 @@ Open the local URL Streamlit prints in your terminal, upload a PDF, and start ch
 
 - **Dashboard URL:** https://conversational-rag-chatbot-pdf.streamlit.app/
 
-
-
---- 
+---
 
 ## Deep Codebase Analysis
 
-| File | Purpose / Details |
-|---|---|
+| File                              | Purpose / Details                                                                              |
+| --------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `.devcontainer\devcontainer.json` | Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile |
-| `app.py` | Core component logic and implementation details. |
-| `requirements.txt` | Core component logic and implementation details. |
+| `app.py`                          | Core component logic and implementation details.                                               |
+| `requirements.txt`                | Core component logic and implementation details.                                               |
