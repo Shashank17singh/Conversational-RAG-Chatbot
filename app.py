@@ -79,6 +79,63 @@ def main() -> None:
     """
     Main Streamlit application execution block.
     """
+    st.set_page_config(page_title="Conversational RAG Chatbot", layout="wide")
+    
+    CUSTOM_CSS = """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    html, body, [class*="css"]  {
+        font-family: 'DM Sans', sans-serif !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', sans-serif !important;
+        color: #7C3AED !important;
+        font-weight: 700 !important;
+    }
+
+    .stApp {
+        background-color: #FAF5FF;
+        color: #1E1B4B;
+    }
+
+    [data-testid="stHeader"] {
+        background-color: rgba(250,245,255,0.9) !important;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        background-color: #7C3AED;
+        color: #FFFFFF;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+    
+    .stButton > button:hover {
+        background-color: #A78BFA;
+        color: #0F172A;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.2);
+    }
+
+    /* Inputs */
+    .stTextInput > div > div > input, .stFileUploader > div > div {
+        background-color: #FFFFFF;
+        border: 1px solid #DDD6FE;
+        border-radius: 8px;
+        color: #1E1B4B;
+    }
+    .stTextInput > div > div > input:focus {
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+    }
+    </style>
+    """
+    st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
     groq_api_key = setup_environment()
     embeddings = HuggingFaceEndpointEmbeddings(
         model="sentence-transformers/all-MiniLM-L6-v2"
