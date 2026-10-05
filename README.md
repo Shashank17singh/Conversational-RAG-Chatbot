@@ -16,7 +16,7 @@
 
 ## Overview
 
-Architected a production-ready RAG web application featuring secure API key management, a modularized execution state, and a highly optimized dependency tree. Utilizes Streamlit, LangChain, and Gemini to facilitate context-aware, multi-turn dialogue over uploaded PDF documents with ChromaDB vector storage.
+A RAG web application that enables context-aware, multi-turn conversations over uploaded PDF documents. It uses Streamlit, LangChain, and Gemini, with a focus on secure API key management and modular execution state.
 
 ---
 
