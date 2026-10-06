@@ -150,10 +150,4 @@ Open the local URL Streamlit prints in your terminal, upload a PDF, and start ch
 
 ---
 
-## Deep Codebase Analysis
 
-| File                              | Purpose / Details                                                                              |
-| --------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `.devcontainer\devcontainer.json` | Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile |
-| `app.py`                          | Core component logic and implementation details.                                               |
-| `requirements.txt`                | Core component logic and implementation details.                                               |
