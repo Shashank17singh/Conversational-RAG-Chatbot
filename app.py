@@ -2,6 +2,7 @@
 Conversational RAG interface using Streamlit and LangChain.
 Implements history-aware retrieval over PDF documents.
 """
+
 import os
 import tempfile
 from typing import Any
@@ -33,17 +34,17 @@ def setup_environment() -> str:
     load_dotenv()
     groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
     hf_key = st.secrets.get("HUGGINGFACE_API_KEY", os.getenv("HUGGINGFACE_API_KEY"))
-    
+
     if hf_key:
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_key
-        
+
     if not groq_api_key:
         st.error(
             "No Groq API key configured. Add GROQ_API_KEY to a local .env file "
             "(for development) or to Streamlit's Secrets (for deployment)."
         )
         st.stop()
-        
+
     return groq_api_key
 
 
@@ -59,10 +60,10 @@ def process_uploaded_pdfs(uploaded_files: list[Any]) -> list[Document]:
             temp_pdf_path = os.path.join(temp_dir, uploaded_file.name)
             with open(temp_pdf_path, "wb") as file:
                 file.write(uploaded_file.getvalue())
-                
+
             loader = PyPDFLoader(temp_pdf_path)
             documents.extend(loader.load())
-            
+
     return documents
 
 
@@ -88,32 +89,32 @@ def main() -> None:
     """
     st.set_page_config(page_title="Conversational RAG Chatbot", layout="wide")
     groq_api_key = setup_environment()
-    
+
     # We load models at the top to fail fast if keys/connectivity are missing
     embeddings = HuggingFaceEndpointEmbeddings(
         model="sentence-transformers/all-MiniLM-L6-v2"
     )
     llm = ChatGroq(groq_api_key=groq_api_key, model_name="openai/gpt-oss-20b")
-    
+
     st.title("Conversational RAG Chatbot")
     st.write("Upload PDF's and chat with their content")
-    
+
     session_id = st.text_input("Session ID", value="default_session")
     uploaded_files = st.file_uploader(
         "Choose a PDF File", type="pdf", accept_multiple_files=True
     )
-    
+
     if uploaded_files:
         documents = process_uploaded_pdfs(uploaded_files)
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000, chunk_overlap=100
         )
         splits = text_splitter.split_documents(documents)
-        
+
         if not splits:
             st.error("No content extracted from the PDF.")
             st.stop()
-            
+
         # Rebuilding the vector store on every upload is inefficient for large files,
         # but acceptable for a simple MVP. In production, decouple ingestion from serving.
         vectorstore = Chroma(
@@ -123,7 +124,7 @@ def main() -> None:
         )
         vectorstore.add_documents(splits)
         retriever = vectorstore.as_retriever()
-        
+
         # 1. Prompt to rewrite the question based on chat history
         contextualize_q_prompt = ChatPromptTemplate.from_messages(
             [
@@ -138,7 +139,7 @@ def main() -> None:
         history_aware_retriever = create_history_aware_retriever(
             llm, retriever, contextualize_q_prompt
         )
-        
+
         # 2. Prompt to answer the standalone question using retrieved context
         qa_prompt = ChatPromptTemplate.from_messages(
             [
@@ -151,7 +152,7 @@ def main() -> None:
         rag_chain = create_retrieval_chain(
             history_aware_retriever, question_answer_chain
         )
-        
+
         # Wrap in history management
         conversational_rag_chain = RunnableWithMessageHistory(
             rag_chain,
@@ -160,7 +161,7 @@ def main() -> None:
             history_messages_key="chat_history",
             output_messages_key="answer",
         )
-        
+
         user_input = st.text_input("Your Question:")
         if user_input:
             response = conversational_rag_chain.invoke(
@@ -169,7 +170,7 @@ def main() -> None:
             )
             st.success("Response received!")
             st.write("**Assistant:**", response["answer"])
-            
+
             with st.expander("View Chat History"):
                 for msg in get_session_history(session_id).messages:
                     st.write(f"**{msg.type.capitalize()}:** {msg.content}")
