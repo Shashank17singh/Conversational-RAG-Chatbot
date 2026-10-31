@@ -16,7 +16,7 @@
 
 ## Overview
 
-A RAG web application that enables context-aware, multi-turn conversations over uploaded PDF documents. It uses Streamlit, LangChain, and Gemini, with a focus on secure API key management and modular execution state.
+A RAG web application that enables context-aware, multi-turn conversations over uploaded PDF documents. It uses Streamlit, LangChain and Groq.
 
 ---
 
@@ -55,7 +55,7 @@ graph TD
 | ------------------------------- | ------------------------------------------------------- |
 | **Multi-PDF Upload**            | Upload one or more PDFs simultaneously                  |
 | **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
-| **Groq-Powered LLM**            | Ultra-fast inference using openai/gpt-oss-20b           |
+| **Groq-Powered LLM**            | Fast inference using openai/gpt-oss-20b           |
 | **Semantic Search**             | HuggingFace embeddings + ChromaDB vector store          |
 | **Session Management**          | Multiple isolated chat sessions supported               |
 | **Clean Streamlit UI**          | Simple, browser-based interface                         |
