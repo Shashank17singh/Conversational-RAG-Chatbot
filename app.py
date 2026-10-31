@@ -25,6 +25,8 @@ from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from rag_core import private_collection_name, safe_filename, uploads_fingerprint
+
 
 def setup_environment() -> str:
     """
@@ -57,7 +59,7 @@ def process_uploaded_pdfs(uploaded_files: list[Any]) -> list[Document]:
     # Avoid writing to the current directory; use a proper temp dir for concurrency safety
     with tempfile.TemporaryDirectory() as temp_dir:
         for uploaded_file in uploaded_files:
-            temp_pdf_path = os.path.join(temp_dir, uploaded_file.name)
+            temp_pdf_path = os.path.join(temp_dir, safe_filename(uploaded_file.name))
             with open(temp_pdf_path, "wb") as file:
                 file.write(uploaded_file.getvalue())
 
@@ -77,6 +79,35 @@ def get_session_history(session: str) -> BaseChatMessageHistory:
     if session not in st.session_state.store:
         st.session_state.store[session] = ChatMessageHistory()
     return st.session_state.store[session]
+
+
+def get_session_vectorstore(uploaded_files: list[Any], embeddings: Any) -> Chroma:
+    """
+    Returns this session's in-memory index, rebuilding it only when the uploads change.
+    Each index has its own collection, so one visitor's documents never reach another.
+    """
+    fingerprint = uploads_fingerprint(
+        (file.name, file.getvalue()) for file in uploaded_files
+    )
+    cached = st.session_state.get("vector_index")
+    if cached and cached[0] == fingerprint:
+        return cached[1]
+
+    documents = process_uploaded_pdfs(uploaded_files)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    splits = text_splitter.split_documents(documents)
+
+    if not splits:
+        st.error("No content extracted from the PDF.")
+        st.stop()
+
+    vectorstore = Chroma(
+        collection_name=private_collection_name(),
+        embedding_function=embeddings,
+    )
+    vectorstore.add_documents(splits)
+    st.session_state.vector_index = (fingerprint, vectorstore)
+    return vectorstore
 
 
 def main() -> None:
@@ -105,24 +136,7 @@ def main() -> None:
     )
 
     if uploaded_files:
-        documents = process_uploaded_pdfs(uploaded_files)
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=100
-        )
-        splits = text_splitter.split_documents(documents)
-
-        if not splits:
-            st.error("No content extracted from the PDF.")
-            st.stop()
-
-        # Rebuilding the vector store on every upload is inefficient for large files,
-        # but acceptable for a simple MVP. In production, decouple ingestion from serving.
-        vectorstore = Chroma(
-            collection_name="test_collection",
-            embedding_function=embeddings,
-            persist_directory="./chroma_db",
-        )
-        vectorstore.add_documents(splits)
+        vectorstore = get_session_vectorstore(uploaded_files, embeddings)
         retriever = vectorstore.as_retriever()
 
         # 1. Prompt to rewrite the question based on chat history
