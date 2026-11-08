@@ -1,18 +1,6 @@
-<div align="center">
-
 # Conversational RAG Chatbot
 
-**A Retrieval-Augmented Generation web app that lets you chat with your PDFs - with full conversational memory**
-
-[![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![LangChain](https://img.shields.io/badge/LangChain-RAG%20Framework-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/)
-[![Groq](https://img.shields.io/badge/Groq-openai--gpt--oss--20b-F55036?style=for-the-badge&logoColor=white)](https://groq.com/)
-[![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-6A5ACD?style=for-the-badge&logoColor=white)](https://www.trychroma.com/)
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-Embeddings-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
-
-</div>
-
----
+A Retrieval-Augmented Generation web app that lets you chat with your PDFs, with full conversational memory.
 
 ## Overview
 

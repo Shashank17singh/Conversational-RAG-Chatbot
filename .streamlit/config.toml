@@ -1,0 +1,8 @@
+[theme]
+# Dark wine chat surface with one rose accent.
+base = "dark"
+primaryColor = "#e0457b"
+backgroundColor = "#1b1418"
+secondaryBackgroundColor = "#271d23"
+textColor = "#f3e8ee"
+font = "sans-serif"
