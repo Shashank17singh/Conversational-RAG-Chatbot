@@ -1,14 +1,19 @@
 # Conversational RAG Chatbot
 
-A Retrieval-Augmented Generation web app that lets you chat with your PDFs, with full conversational memory.
+A Retrieval-Augmented Generation web application that lets you chat with your PDFs with conversational memory.
 
-## Overview
-
-A RAG web application that enables context-aware, multi-turn conversations over uploaded PDF documents. It uses Streamlit, LangChain and Groq.
+> **Live Deployments:**
+> * **Interactive Streamlit App:** [conversational-rag-chatbot-pdf.streamlit.app](https://conversational-rag-chatbot-pdf.streamlit.app/)
 
 ---
 
-### RAG Architecture
+## Overview
+
+Conversational RAG Chatbot turns dense, static PDF documents into interactive conversational partners. Leveraging LangChain orchestration, Hugging Face embeddings, ChromaDB vector indexing, and Groq LLM inference, the system reformulates user questions based on conversation history and retrieves semantically relevant context chunks to answer inquiries accurately without hallucinations.
+
+---
+
+## Architecture Overview
 
 ```mermaid
 graph TD
@@ -24,7 +29,7 @@ graph TD
     D -->|Top-K Context| G{LangChain Prompt Template}
     H[(Chat History)] --> G
     E --> G
-    G -->|Augmented Prompt| I(Groq gpt-oss-20b)
+    G -->|Augmented Prompt| I(Groq LLM)
     I --> J[Streamlit Chat UI]
     end
 
@@ -36,21 +41,6 @@ graph TD
     class B,C,E,F,H core;
     class D,G,I logic;
 ```
-
-## Features
-
-|                                 |                                                         |
-| ------------------------------- | ------------------------------------------------------- |
-| **Multi-PDF Upload**            | Upload one or more PDFs simultaneously                  |
-| **Context-Aware Conversations** | Chat history is used to reformulate follow-up questions |
-| **Groq-Powered LLM**            | Fast inference using openai/gpt-oss-20b           |
-| **Semantic Search**             | HuggingFace embeddings + ChromaDB vector store          |
-| **Session Management**          | Multiple isolated chat sessions supported               |
-| **Clean Streamlit UI**          | Simple, browser-based interface                         |
-
----
-
-## Architecture
 
 ```
 PDF Upload
@@ -76,21 +66,51 @@ History-Aware Retriever (LangChain)
 Groq LLM (openai/gpt-oss-20b)
           │
           ▼
-     Final Answer
+     Final Grounded Answer
 ```
 
 ---
 
-## Tech Stack
+## Features
 
-| Component     | Technology                     |
-| ------------- | ------------------------------ |
-| Frontend      | Streamlit                      |
-| LLM           | Groq - openai/gpt-oss-20b      |
-| Embeddings    | HuggingFace - all-MiniLM-L6-v2 |
-| Vector Store  | ChromaDB                       |
-| RAG Framework | LangChain                      |
-| PDF Loader    | PyPDFLoader                    |
+| Feature | Description |
+| ------- | ----------- |
+| **Multi-PDF Upload** | Ingest and search across single or multiple PDF documents simultaneously |
+| **Conversational Memory** | Preserves context across multi-turn dialogues by reformulating ambiguous follow-ups |
+| **Local Embedding Pipeline** | Uses Hugging Face `all-MiniLM-L6-v2` embeddings for private vector representations |
+| **ChromaDB Indexing** | Fast, local vector store management with similarity search scoring |
+| **Sub-Second LLM Inference** | High-throughput generation powered by Groq cloud endpoints |
+| **Session Isolation** | Clean per-session chat history separation inside Streamlit |
+
+---
+
+## Technology Stack
+
+| Component | Technology |
+| --------- | ---------- |
+| Frontend UI | Streamlit |
+| LLM Provider | Groq API |
+| Embedding Model | Hugging Face (`sentence-transformers/all-MiniLM-L6-v2`) |
+| Vector Store | ChromaDB |
+| Orchestration Framework | LangChain |
+| PDF Extraction | PyPDFLoader / pypdf |
+| Testing & Linting | pytest, ruff |
+
+---
+
+## Project Structure
+
+```
+Conversational-RAG-Chatbot/
+├── app.py              # Streamlit frontend and session management
+├── rag_core.py         # RAG pipeline: document chunking, indexing, and history-aware chains
+├── tests/
+│   ├── conftest.py     # Test fixtures and mock setups
+│   └── test_rag_core.py# Unit tests for text splitting and retrieval logic
+├── Dockerfile          # Container build definition
+├── requirements.txt    # Production dependencies
+└── README.md
+```
 
 ---
 
@@ -98,7 +118,7 @@ Groq LLM (openai/gpt-oss-20b)
 
 ### Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - A [Groq API key](https://console.groq.com/keys)
 
 ### 1. Clone the repository
@@ -114,28 +134,58 @@ cd Conversational-RAG-Chatbot
 pip install -r requirements.txt
 ```
 
-### 3. Set your Groq API key
+### 3. Configure environment variables
 
 ```bash
-export GROQ_API_KEY="your_api_key_here"    # On Windows: set GROQ_API_KEY=your_api_key_here
+cp .env.example .env
+# Edit .env and supply your credentials:
+# GROQ_API_KEY=your_api_key_here
 ```
 
-### 4. Run the app
+### 4. Run the application
 
 ```bash
 streamlit run app.py
 ```
 
-Open the local URL Streamlit prints in your terminal, upload a PDF, and start chatting.
-
 ---
+
+## Running the Tests
+
+Run the test suite using pytest:
+
+```bash
+pytest
+```
+
+Run static code analysis and linting:
+
+```bash
+ruff check .
+```
 
 ---
 
 ## Deployment
 
-- **Dashboard URL:** https://conversational-rag-chatbot-pdf.streamlit.app/
+The application is containerized and deployable to any Docker host or cloud container runtime:
+
+```bash
+docker build -t conversational-rag-chatbot .
+docker run -p 8501:8501 -e GROQ_API_KEY=your_key conversational-rag-chatbot
+```
+
+Live deployment is hosted on Streamlit Community Cloud at [conversational-rag-chatbot-pdf.streamlit.app](https://conversational-rag-chatbot-pdf.streamlit.app/).
 
 ---
 
+## Known Limitations
 
+- ChromaDB indexes are maintained in memory/ephemeral storage during Streamlit sessions; restarting the container clears uploaded document indices.
+- Scanned documents or complex multi-column PDF layouts without clean text streams require external OCR preprocessing before extraction.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
