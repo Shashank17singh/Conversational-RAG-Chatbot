@@ -179,10 +179,10 @@ Live deployment is hosted on Streamlit Community Cloud at [conversational-rag-ch
 
 ---
 
-## Known Limitations
+## Operational Considerations & Limitations
 
-- ChromaDB indexes are maintained in memory/ephemeral storage during Streamlit sessions; restarting the container clears uploaded document indices.
-- Scanned documents or complex multi-column PDF layouts without clean text streams require external OCR preprocessing before extraction.
+- **Vector Persistence**: In-memory vector indices are bound to the active user session; persistent enterprise deployments should connect an external managed vector store (e.g. pgvector, Pinecone, or Qdrant).
+- **Document Preprocessing**: Scanned documents or multi-column PDFs without embedded text streams require optical character recognition (OCR) layout analysis prior to chunking and embedding.
 
 ---
 
