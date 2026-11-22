@@ -1,5 +1,4 @@
 import pytest
-
 from rag_core import private_collection_name, safe_filename, uploads_fingerprint
 
 

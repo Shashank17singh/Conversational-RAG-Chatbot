@@ -24,9 +24,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
 from rag_core import private_collection_name, safe_filename, uploads_fingerprint
-
 
 CUSTOM_CSS = """
 <style>
