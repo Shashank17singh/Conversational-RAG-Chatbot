@@ -1,8 +1,10 @@
+[client]
+showSidebarNavigation = false
+
 [theme]
-# Dark wine chat surface with one rose accent.
 base = "dark"
-primaryColor = "#e0457b"
-backgroundColor = "#1b1418"
-secondaryBackgroundColor = "#271d23"
-textColor = "#f3e8ee"
+primaryColor = "#3b82f6"
+backgroundColor = "#0d1117"
+secondaryBackgroundColor = "#161b22"
+textColor = "#f0f6fc"
 font = "sans-serif"
